@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Hornet VR Trainer — F/A-18C</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #0b1016; color: #e8eef4; font-family: system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; }
+  #overlay { position: fixed; left: 16px; top: 16px; max-width: 420px; background: rgba(10,15,22,.86); border: 1px solid #2c4a63; border-radius: 10px; padding: 14px 16px; font-size: 14px; line-height: 1.45; }
+  #overlay h1 { font-size: 18px; margin: 0 0 6px; }
+  #overlay small { color: #9fb3c4; }
+  #status { color: #7fd1ff; margin: 6px 0; }
+  #vrslot { margin-top: 8px; min-height: 44px; position: relative; }
+  #vrslot button { position: static !important; transform: none !important; margin: 0 !important; width: 100% !important; font-size: 15px !important; padding: 12px !important; }
+  #recenter { display: none; }
+  #debrief { max-height: 40vh; overflow: auto; margin-top: 8px; font-size: 13px; }
+  #debrief .ok { color: #8f8; } #debrief .ko { color: #ff9a6b; } #debrief .err { color: #ff7b7b; } #debrief .opt { color: #aaa; }
+  details { margin-top: 6px; }
+  #scn { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  #scn button { flex: 1 1 30%; background: #1f3a52; color: #fff; border: 1px solid #7fd1ff; border-radius: 6px; padding: 7px 4px; font-size: 13px; cursor: pointer; }
+  kbd { background: #23313f; border-radius: 3px; padding: 0 4px; font-size: 12px; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "./three.module.js" } }
+</script>
+</head>
+<body>
+<div id="overlay">
+  <h1>F/A-18C · Hornet VR Trainer</h1>
+  <div id="status">Chargement…</div>
+  <div>Cockpit complet calé sur le module DCS : cold start (examen), radar, capteurs, armement, radios, HUD.</div>
+  <div id="scn">
+    <button data-scn="cold">Examen cold start</button><button data-scn="hot">Hot start sol</button><button data-scn="aa">Air-air</button>
+    <button data-scn="ag">Air-sol</button><button data-scn="nav">Navigation</button>
+  </div>
+  <div id="vrslot"></div>
+  <button id="recenter">Recentrer</button>
+  <details><summary>Commandes</summary>
+    <small>
+    <b>Quest (manettes)</b> : viser + gâchette = vers l'avant / le haut / sens horaire · grip = vers l'arrière / le bas / anti-horaire · stick haut/bas/gauche/droite = idem · B ou Y = recentrer · A ou X = panneau d'examen.<br>
+    <b>Manette des gaz</b> : viser une poignée + gâchette maintenue, puis avancer / reculer la manette (OFF → IDLE → MIL → cran A/B → MAX). Retour sur OFF : lever d'abord le finger lift (devant la poignée). Main : pincer la poignée et la déplacer. PC : cliquer-glisser la poignée vers le haut / bas. Les boutons des poignées (TDC, COMM, aérofreins, leurres, cage, antenne, RAID, ATC) sont cliquables.<br>
+    <b>Quest (mains)</b> : appuyer du bout de l'index sur boutons et interrupteurs (le geste donne le sens), pincer + tourner le poignet pour les molettes.<br>
+    <b>PC</b> : glisser pour regarder · clic gauche / droit sur une commande · molette = tourner.<br>
+    <b>HOTAS virtuel (Quest)</b> : appui <i>long</i> sur le clic du stick d'une manette pour passer cette main en HOTAS (aide affichée au-dessus de la manette).
+    Droite = manche : gâchette tir / laser, A pickle, B undesignate, B maintenu + stick = sélection d'arme, stick = SCS, grip maintenu = piloter au poignet.
+    Gauche = manette des gaz : stick TDC, gâchette TDC enfoncé, grip maintenu = gaz, X COMM 1, Y COMM 2, Y maintenu + stick = élévation antenne, clic cage/uncage, grip+X leurres, grip+Y aérofreins, grip+clic RAID/FOV.<br>
+    <b>HOTAS clavier</b> : <kbd>flèches</kbd> TDC · <kbd>Entrée</kbd> TDC enfoncé · <kbd>Ctrl</kbd>+flèches SCS · <kbd>Alt</kbd>+flèches sélection d'arme (↑ AIM-7, ↓ GUN, → AIM-120, ← AIM-9) ·
+    <kbd>Espace</kbd> gâchette · <kbd>Maj</kbd>+<kbd>Espace</kbd> largage · <kbd>Retour</kbd> undesignate · <kbd>C</kbd> cage · <kbd>F</kbd> RAID/FOV · <kbd>X</kbd>/<kbd>Z</kbd> leurres ·
+    <kbd>B</kbd> aérofreins · <kbd>1</kbd>/<kbd>2</kbd> COMM 1/2 · <kbd>PgUp</kbd>/<kbd>PgDn</kbd> gaz · <kbd>W A S D</kbd> manche · <kbd>[ ]</kbd> antenne · <kbd>P</kbd> palette A/P.
+    </small>
+  </details>
+  <details><summary>Crédits</summary>
+    <small>Cockpit et plaques de légende : <a style="color:#7fd1ff" href="https://github.com/jrsteensen/OpenHornet">OpenHornet</a> (CC BY-NC-SA 4.0). Procédures : guide F/A-18C de Chuck (04/2025) et guide Early Access d'Eagle Dynamics. Projet non commercial, non affilié à Eagle Dynamics.</small>
+  </details>
+  <div id="debrief"></div>
+</div>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
